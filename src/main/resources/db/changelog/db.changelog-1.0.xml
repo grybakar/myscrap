@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+  <changeSet id="1" author="darius">
+    <sql>
+      CREATE TABLE users(
+                          id SERIAL PRIMARY KEY NOT NULL,
+                          name VARCHAR(255) NOT NULL,
+                          email VARCHAR(255) NOT NULL,
+                          password VARCHAR(255) NOT NULL,
+                          address VARCHAR(255) NOT NULL,
+                          phone VARCHAR(255) NOT NULL,
+                          role VARCHAR(255) NOT NULL,
+                          created_on TIMESTAMP
+      );
+    </sql>
+    <rollback>
+      DROP TABLE users;
+    </rollback>
+  </changeSet>
+  <changeSet id="2" author="darius">
+    <sql>
+      CREATE TABLE categories(
+                               id SERIAL PRIMARY KEY NOT NULL,
+                               category_name VARCHAR(255) NOT NULL
+      );
+    </sql>
+    <rollback>DROP TABLE categories</rollback>
+  </changeSet>
+  <changeSet id="3" author="darius">
+    <sql>
+      CREATE TABLE classificators(
+                                   id SERIAL PRIMARY KEY NOT NULL,
+                                   name VARCHAR(255) NOT NULL,
+                                   description VARCHAR(255)
+      );
+    </sql>
+    <rollback>DROP TABLE classificators</rollback>
+  </changeSet>
+  <changeSet id="4" author="darius">
+    <sql>
+      CREATE TABLE items(
+                          id SERIAL PRIMARY KEY NOT NULL,
+                          name VARCHAR(255) NOT NULL
+      );
+    </sql>
+    <rollback>DROP TABLE </rollback>
+  </changeSet>
+  <changeSet id="5" author="darius">
+    <sql>
+      CREATE TABLE items_cataegories(
+                                      item_id BIGINT REFERENCES items(id) ON UPDATE CASCADE,
+                                      category_id BIGINT REFERENCES categories(id) ON UPDATE CASCADE,
+                                      PRIMARY KEY (item_id, category_id)
+      );
+    </sql>
+    <rollback>DROP TABLE items_cataegories</rollback>
+  </changeSet>
+  <changeSet id="6" author="darius">
+    <sql>
+      CREATE TABLE items_classificators(
+                                         item_id BIGINT REFERENCES items(id) ON UPDATE CASCADE,
+                                         classificators_id BIGINT REFERENCES classificators(id) ON UPDATE CASCADE,
+                                         PRIMARY KEY (item_id, classificators_id)
+      );
+    </sql>
+    <rollback>DROP TABLE items_classificators</rollback>
+  </changeSet>
+  <changeSet id="7" author="darius">
+    <sql>
+      CREATE TABLE advertisements(
+                                   id SERIAL PRIMARY KEY NOT NULL,
+                                   price INT NOT NULL,
+                                   is_new BOOLEAN NOT NULL,
+                                   is_unpacked BOOLEAN NOT NULL,
+                                   sell_separately BOOLEAN NOT NULL,
+                                   photo_url VARCHAR(255) NOT NULL,
+                                   quantity INT NOT NULL,
+                                   quantity_per_pack INT,
+                                   description VARCHAR(255) NOT NULL,
+                                   item_address VARCHAR(255) NOT NULL,
+                                   available_time_start TIMESTAMP NOT NULL,
+                                   aveilable_time_end TIMESTAMP NOT NULL,
+                                   user_id BIGINT,
+                                   item_id BIGINT,
+                                   FOREIGN KEY (user_id) REFERENCES users(id),
+                                   FOREIGN KEY (item_id) REFERENCES items(id)
+      );
+    </sql>
+    <rollback>DROP TABLE advertisements</rollback>
+  </changeSet>
+  <changeSet id="8" author="darius">
+    <sql>
+      CREATE TABLE dimensions(
+                               id SERIAL PRIMARY KEY NOT NULL,
+                               length INT,
+                               width INT,
+                               height INT,
+                               advertisements_id BIGINT,
+                               FOREIGN KEY (advertisements_id) REFERENCES advertisements(id)
+      );
+    </sql>
+    <rollback>DROP TABLE dimensions</rollback>
+  </changeSet>
+  <changeSet id="9" author="darius">
+    <sql>
+      CREATE TABLE mass(
+                         id SERIAL PRIMARY KEY NOT NULL,
+                         weight INT,
+                         advertisements_id BIGINT,
+                         FOREIGN KEY (advertisements_id) REFERENCES advertisements(id)
+      );
+    </sql>
+    <rollback>DROP TABLE mass</rollback>
+  </changeSet>
+  <changeSet id="10" author="darius">
+    <sql>
+      CREATE TABLE volume(
+                           id SERIAL PRIMARY KEY NOT NULL,
+                           volume INT,
+                           advertisements_id BIGINT,
+                           FOREIGN KEY (advertisements_id) REFERENCES advertisements(id)
+      );
+    </sql>
+    <rollback>DROP TABLE volume</rollback>
+  </changeSet>
+  <changeSet id="11" author="darius">
+    <sql>
+      CREATE TABLE color(
+                          id SERIAL PRIMARY KEY NOT NULL,
+                          color VARCHAR(255),
+                          advertisements_id BIGINT,
+                          FOREIGN KEY (advertisements_id) REFERENCES advertisements(id)
+      );
+    </sql>
+    <rollback>DROP TABLE color</rollback>
+  </changeSet>
+  <changeSet id="12" author="darius">
+    <sql>
+      CREATE TABLE order_group(
+                                id SERIAL PRIMARY KEY NOT NULL,
+                                starus VARCHAR(255)
+      );
+    </sql>
+    <rollback>DROP TABLE order_group</rollback>
+  </changeSet>
+  <changeSet id="13" author="darius">
+    <sql>
+      CREATE TABLE orders(
+                           id SERIAL PRIMARY KEY NOT NULL,
+                           price INT NOT NULL,
+                           quantity INT NOT NULL,
+                           created_on TIMESTAMP,
+                           modified_on TIMESTAMP,
+                           status VARCHAR(255),
+                           user_id BIGINT,
+                           advertisements_id BIGINT,
+                           order_group_id BIGINT,
+                           FOREIGN KEY (user_id) REFERENCES users(id),
+                           FOREIGN KEY (advertisements_id) REFERENCES advertisements(id),
+                           FOREIGN KEY (order_group_id) REFERENCES order_group(id)
+      );
+    </sql>
+    <rollback>DROP TABLE orders</rollback>
+  </changeSet>
+</databaseChangeLog>
