@@ -51,13 +51,13 @@
   </changeSet>
   <changeSet id="5" author="darius">
     <sql>
-      CREATE TABLE items_cataegories(
+      CREATE TABLE items_categories(
                                       item_id BIGINT REFERENCES items(id) ON UPDATE CASCADE,
                                       category_id BIGINT REFERENCES categories(id) ON UPDATE CASCADE,
                                       PRIMARY KEY (item_id, category_id)
       );
     </sql>
-    <rollback>DROP TABLE items_cataegories</rollback>
+    <rollback>DROP TABLE items_categories</rollback>
   </changeSet>
   <changeSet id="6" author="darius">
     <sql>
@@ -83,7 +83,7 @@
                                    description VARCHAR(255) NOT NULL,
                                    item_address VARCHAR(255) NOT NULL,
                                    available_time_start TIMESTAMP NOT NULL,
-                                   aveilable_time_end TIMESTAMP NOT NULL,
+                                   available_time_end TIMESTAMP NOT NULL,
                                    user_id BIGINT,
                                    item_id BIGINT,
                                    FOREIGN KEY (user_id) REFERENCES users(id),

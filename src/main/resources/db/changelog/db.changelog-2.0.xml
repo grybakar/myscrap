@@ -75,7 +75,7 @@
   </changeSet>
   <changeSet id="5" author="Valdas">
     <sql>
-      INSERT INTO items_cataegories (item_id,category_id)
+      INSERT INTO items_categories (item_id,category_id)
       VALUES (1,1),(2,1),
              (3,2),(4,2),
              (5,3),(6,3),
@@ -86,7 +86,7 @@
              (15,8);
     </sql>
     <rollback>
-      INSERT INTO items_cataegories;
+      INSERT INTO items_categories;
     </rollback>
   </changeSet>
   <changeSet id="6" author="Valdas">
@@ -109,7 +109,7 @@
     <sql>
       INSERT INTO advertisements
       (price,is_new,is_unpacked,sell_separately,photo_url,quantity,quantity_per_pack,
-       description,item_address,available_time_start,aveilable_time_end,user_id,item_id)
+       description,item_address,available_time_start,available_time_end,user_id,item_id)
       VALUES (30,true,true,true,
               'https://ksd-images.lt/display/aikido/cache/76f619976c9e6c4e43160b327eafe838.jpeg?&amp;op=fit&amp;w=748&amp;h=540',
               3,1,'Sandarinamasis, tarpams tarp plytelių užglaistyti','Savanoriu g. 6, Alytus',
