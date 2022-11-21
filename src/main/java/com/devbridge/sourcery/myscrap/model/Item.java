@@ -1,7 +1,9 @@
 package com.devbridge.sourcery.myscrap.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
@@ -49,4 +51,13 @@ public class Item {
     joinColumns = {@JoinColumn(name = "item_id")},
     inverseJoinColumns = {@JoinColumn(name = "classificators_id")})
   private List<Classificator> classificators;
+
+  @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+      CascadeType.PERSIST,
+      CascadeType.MERGE
+    },
+    mappedBy = "items")
+  @JsonIgnore
+  private Set<Category> categories = new HashSet<>();
 }
