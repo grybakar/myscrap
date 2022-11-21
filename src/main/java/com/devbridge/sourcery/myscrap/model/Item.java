@@ -3,8 +3,12 @@ package com.devbridge.sourcery.myscrap.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,4 +40,13 @@ public class Item {
     orphanRemoval = true)
   private List<Advertisement> advertisements;
 
+  @ManyToMany(fetch = FetchType.LAZY,
+    cascade = {
+      CascadeType.PERSIST,
+      CascadeType.MERGE
+    })
+  @JoinTable(name = "items_classificators",
+    joinColumns = {@JoinColumn(name = "item_id")},
+    inverseJoinColumns = {@JoinColumn(name = "classificators_id")})
+  private List<Classificator> classificators;
 }
