@@ -21,5 +21,6 @@ public class AdvertisementDto {
   private String itemAddress;
   private LocalTime availableTimeStart;
   private LocalTime availableTimeEnd;
+  private String itemName;
 
 }
