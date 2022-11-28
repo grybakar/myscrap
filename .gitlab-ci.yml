@@ -43,7 +43,7 @@ clone:
 
 build_app:
   stage: build_app
-  image: amazoncorretto/amazoncorretto:17-alpine3.16-jdk
+  image: amazoncorretto:17-alpine3.16-jdk
   script:
     - cd git-clone
     - ./gradlew clean build

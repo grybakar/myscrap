@@ -1,10 +1,10 @@
 package com.devbridge.sourcery.myscrap.dto;
 
-import java.sql.Timestamp;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
 public class UsersDto {
@@ -22,5 +22,5 @@ public class UsersDto {
   private String address;
   @NotEmpty
   private String phone;
-  private Timestamp createdOn;
+  private LocalDateTime createdOn;
 }

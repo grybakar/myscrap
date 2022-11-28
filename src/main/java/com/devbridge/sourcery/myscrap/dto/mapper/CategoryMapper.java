@@ -8,11 +8,13 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class CategoryMapper {
+
   private final MapperConfig mapperConfig;
 
   public CategoryDto mapToDto(Category categories) {
     return mapperConfig.modelMapper().map(categories, CategoryDto.class);
   }
+
   public Category mapToEntity(CategoryDto categoriesDto) {
     return mapperConfig.modelMapper().map(categoriesDto, Category.class);
   }

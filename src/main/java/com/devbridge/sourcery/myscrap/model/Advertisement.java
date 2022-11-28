@@ -1,11 +1,6 @@
 package com.devbridge.sourcery.myscrap.model;
 
-import com.devbridge.sourcery.myscrap.model.classificator.Color;
-import com.devbridge.sourcery.myscrap.model.classificator.Dimension;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.time.LocalTime;
 import javax.persistence.CascadeType;
@@ -17,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +34,8 @@ public class Advertisement {
   private Boolean isNew;
   private Boolean isUnpacked;
   private Boolean sellSeparately;
-  private String photo_url;
+  @Column(name = "photo_url")
+  private String photoUrl;
   private Double quantity;
   private Double quantityPerPack;
   private String description;

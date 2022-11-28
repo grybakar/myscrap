@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import javax.persistence.Column;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,8 @@ public class AdvertisementDto {
   private Boolean isNew;
   private Boolean isUnpacked;
   private Boolean sellSeparately;
-  private String photo_url;
+  @Column(name = "photo_url")
+  private String photoUrl;
   private Double quantity;
   private Double quantityPerPack;
   private String description;

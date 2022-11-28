@@ -10,9 +10,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-  String CATEGORIES_WHERE_CATEGORY_NAME = "SELECT a FROM categories a WHERE lower(a.categoryName) LIKE lower(concat(:categoryName,'%'))";
+  String CATEGORIES_WHERE_CATEGORY_NAME = "SELECT a FROM categories a WHERE lower(a.categoryName) "
+    + "LIKE lower(concat(:categoryName,'%'))";
 
   @Query(value = CATEGORIES_WHERE_CATEGORY_NAME)
-  List<Category>findAllByCategoryName(@Param("categoryName") String categoryName);
+  List<Category> findAllByCategoryName(@Param("categoryName") String categoryName);
 
 }

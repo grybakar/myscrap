@@ -1,9 +1,7 @@
 package com.devbridge.sourcery.myscrap.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

@@ -1,4 +1,4 @@
-FROM amazoncorretto/amazoncorretto:17-alpine3.16-jdk
+FROM amazoncorretto:17-alpine3.16-jdk
 
 ENV JAVA_ENABLE_DEBUG=${JAVA_ENABLE_DEBUG}
 

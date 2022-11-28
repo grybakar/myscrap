@@ -19,10 +19,7 @@ public class Dimension {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  Double length;
-  Double width;
-  Double height;
-
-
+  private Double length;
+  private Double width;
+  private Double height;
 }

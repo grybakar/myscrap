@@ -1,13 +1,11 @@
 package com.devbridge.sourcery.myscrap.controller;
 
 import com.devbridge.sourcery.myscrap.dto.ClassificatorDto;
-import com.devbridge.sourcery.myscrap.model.Classificator;
 import com.devbridge.sourcery.myscrap.service.ClassificatorService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
