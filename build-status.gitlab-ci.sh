@@ -6,13 +6,13 @@ export PR_ID=$(jq -r '.pullrequest.id' $TRIGGER_PAYLOAD)
 export PR_TITLE=$(jq -r '.pullrequest.title' $TRIGGER_PAYLOAD)
 export PR_STATUS=$(jq -r '.pullrequest.state' $TRIGGER_PAYLOAD)
 
-
 export TARGET_BRANCH_NAME=$(jq -r '.pullrequest.destination.branch.name' $TRIGGER_PAYLOAD)
 
-
 export SOURCE_BRANCH_NAME=$(jq -r '.pullrequest.source.branch.name' $TRIGGER_PAYLOAD)
-export SOURCE_COMMIT_SHA=$(jq -r '.pullrequest.source.commit.hash' $TRIGGER_PAYLOAD)
+[[ "$PR_STATUS" == "MERGED" ]] && SOURCE_BRANCH_NAME="$TARGET_BRANCH_NAME"
 
+export SOURCE_COMMIT_SHA=$(jq -r '.pullrequest.source.commit.hash' $TRIGGER_PAYLOAD)
+[[ "$PR_STATUS" == "MERGED" ]] && SOURCE_COMMIT_SHA=$(jq -r '.pullrequest.merge_commit.hash' $TRIGGER_PAYLOAD)
 
 echo "TARGET_BRANCH_NAME=$TARGET_BRANCH_NAME" >> build-status.env
 echo "SOURCE_BRANCH_NAME=$SOURCE_BRANCH_NAME" >> build-status.env
