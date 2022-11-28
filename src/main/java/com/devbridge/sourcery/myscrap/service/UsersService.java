@@ -23,12 +23,10 @@ public class UsersService {
       .collect(Collectors.toList());
   }
 
-  public List<UsersDto> getUsersById(Long id) {
-    List<Users> usersById = usersRepository.getUsersById(id);
-    return usersById
-      .stream()
-      .map(usersMapper::mapToDto)
-      .collect(Collectors.toList());
+  public UsersDto getUserById(Long id) {
+    Users usersById = usersRepository.findById(id)
+      .orElseThrow(() -> new IllegalArgumentException("User with given id not found"));
+    return usersMapper.mapToDto(usersById);
   }
 
   public Users createUser(Users user) {
