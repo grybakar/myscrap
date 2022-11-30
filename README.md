@@ -49,3 +49,4 @@ Executes project tests
 ###H2 embedded database
 
 Application is currently using an embedded database H2 for integration tests
+
