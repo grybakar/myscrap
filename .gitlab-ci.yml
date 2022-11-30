@@ -78,6 +78,7 @@ deploy:
       --install backend ./helm/backend
       -f ./helm/backend/values.yaml
       --namespace $TEAM_NAME
+      --create-namespace
       --set backend.container.image=$IMAGE_NAME
       --set backend.ingress.host=$HOST
       --set backend.container.port=8080
