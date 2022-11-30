@@ -6,7 +6,9 @@ export PR_ID=$(jq -r '.pullrequest.id' $TRIGGER_PAYLOAD)
 export PR_TITLE=$(jq -r '.pullrequest.title' $TRIGGER_PAYLOAD)
 export PR_STATUS=$(jq -r '.pullrequest.state' $TRIGGER_PAYLOAD)
 
+
 export TARGET_BRANCH_NAME=$(jq -r '.pullrequest.destination.branch.name' $TRIGGER_PAYLOAD)
+
 
 export SOURCE_BRANCH_NAME=$(jq -r '.pullrequest.source.branch.name' $TRIGGER_PAYLOAD)
 [[ "$PR_STATUS" == "MERGED" ]] && SOURCE_BRANCH_NAME="$TARGET_BRANCH_NAME"
@@ -27,4 +29,27 @@ function status() {
         -H "Content-Type:application/json" \
         -X POST https://api.bitbucket.org/2.0/repositories/$REPO_URL/commit/$SOURCE_COMMIT_SHA/statuses/build/ \
         -d @build.json
+}
+
+function exec_psql() {
+  kubectl exec -it deployment/pg-admin-database -n pg-admin -- psql -U postgres -XtAc "$@"
+}
+
+function create_db() {
+    USER=$1;
+    PASSWORD=$2;
+
+    if [ -z "$USER" ]; then echo "You need to specify your TEAM_NAME which will be used for user and database naming"; exit 1; fi
+    if [ -z "$PASSWORD" ]; then echo "You need to specify your DB_PASSWORD as second argument"; exit 1; fi
+
+    if [ "$( exec_psql "SELECT 1 FROM pg_database WHERE datname='$USER'" )" -eq '1' ]
+    then
+        echo "Database already exists"
+    else
+        echo "Database does not exist. Creating new user and database..."
+
+        exec_psql "create user $USER with encrypted password '$PASSWORD';" &&
+        exec_psql "create database $USER;" &&
+        exec_psql "grant all privileges on database $USER to $USER;"
+    fi
 }

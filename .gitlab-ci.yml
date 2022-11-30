@@ -46,6 +46,7 @@ build_app:
   image: amazoncorretto:17-alpine3.16-jdk
   script:
     - cd git-clone
+    - chmod +x ./gradlew
     - ./gradlew clean build
   artifacts:
     paths:
@@ -65,17 +66,14 @@ build:
 deploy:
   stage: deploy
   image: $ACR_URL/gitlab/packages:latest
+  before_script:
+    - apk update
+    - apk add curl jq
   script:
+    - . ./build-status.gitlab-ci.sh
     - if [[ ! "$PR_STATUS" == "MERGED" && "$TARGET_BRANCH_NAME" == "$DEPLOYMENT_BRANCH" ]]; then exit 0;fi
     - cd git-clone
-    - helm upgrade
-      --install database ./helm/database
-      -f ./helm/database/values.yaml
-      --namespace $TEAM_NAME
-      --create-namespace
-      --set type=$DB_TYPE
-      --set password=$DB_PASSWORD
-    - kubectl rollout status deployment.apps/$TEAM_NAME-database -n $TEAM_NAME
+    - create_db $TEAM_NAME $DB_PASSWORD
     - helm upgrade
       --install backend ./helm/backend
       -f ./helm/backend/values.yaml
