@@ -12,4 +12,16 @@
       ALTER TABLE users;
     </rollback>
   </changeSet>
+  <changeSet id="2" author="Karolis">
+    <sql>
+      ALTER TABLE advertisements
+      ALTER
+      COLUMN available_time_start TYPE TIME,
+      ALTER
+      COLUMN available_time_end TYPE TIME;
+    </sql>
+    <rollback>
+      ALTER TABLE advertisements;
+    </rollback>
+  </changeSet>
 </databaseChangeLog>

@@ -1,6 +1,5 @@
 package com.devbridge.sourcery.myscrap.dto;
 
-import java.time.LocalTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +21,7 @@ public class AdvertisementDto {
   private Double quantityPerPack;
   private String description;
   private String itemAddress;
-  private LocalTime availableTimeStart;
-  private LocalTime availableTimeEnd;
-  private String itemName;
-
+  private String availableTimeStart;
+  private String availableTimeEnd;
+  private Long itemId;
 }

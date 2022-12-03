@@ -2,22 +2,19 @@ package com.devbridge.sourcery.myscrap.dto.mapper;
 
 import com.devbridge.sourcery.myscrap.dto.AdvertisementDto;
 import com.devbridge.sourcery.myscrap.model.Advertisement;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Service
-@AllArgsConstructor
-public class AdvertisementMapper {
 
-  private final MapperConfig mapperConfig;
+@Mapper(componentModel = "spring")
+public interface AdvertisementMapper {
 
-  public AdvertisementDto mapToDto(Advertisement advertisement) {
-    return mapperConfig.modelMapper().map(advertisement, AdvertisementDto.class);
-  }
+  @Mapping(target = "itemId", source = "item.id")
+  AdvertisementDto toAdvertisementDto(Advertisement advertisement);
 
-  public Advertisement mapToEntity(AdvertisementDto advertisementDto) {
-    return mapperConfig.modelMapper().map(advertisementDto, Advertisement.class);
-  }
+  @Mapping(target = "item", ignore = true)
+  @Mapping(target = "item.id", source = "itemId")
+  Advertisement toAdvertisement(AdvertisementDto advertisementDto);
 
 
 }

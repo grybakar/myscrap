@@ -5,6 +5,7 @@ import com.devbridge.sourcery.myscrap.model.classificator.Dimension;
 import com.devbridge.sourcery.myscrap.model.classificator.Mass;
 import com.devbridge.sourcery.myscrap.model.classificator.Volume;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.time.LocalTime;
 import javax.persistence.CascadeType;
@@ -50,6 +51,7 @@ public class Advertisement {
 
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_Id")
+  @JsonIgnore
   private Item item;
 
   @OneToOne(mappedBy = "advertisement")

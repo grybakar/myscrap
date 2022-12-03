@@ -1,6 +1,6 @@
 package com.devbridge.sourcery.myscrap.controller;
 
-import com.devbridge.sourcery.myscrap.service.ImageService;
+import com.devbridge.sourcery.myscrap.utils.ImageUploadUtils;
 import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,16 +18,15 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping(value = "/images")
 @AllArgsConstructor
-public class ImageController {
+public class ImageUploadController {
 
-  public final ImageService imageService;
+  public final ImageUploadUtils imageUploadUtils;
 
   @PostMapping(value = "upload")
   public ResponseEntity<String> uploadImage(@RequestParam MultipartFile file) {
-    String fileUrl = imageService.uploadImage(file);
+    String fileUrl = imageUploadUtils.uploadImage(file);
     return new ResponseEntity<>(fileUrl, HttpStatus.OK);
   }
-
 
   @GetMapping(
     value = "getImage/{imageName}",
@@ -35,7 +34,7 @@ public class ImageController {
   )
   public @ResponseBody byte[] getImageWithMediaType(@PathVariable(name = "imageName") String fileName)
     throws IOException {
-    return imageService.getImage(fileName);
+    return imageUploadUtils.getImage(fileName);
   }
 
 

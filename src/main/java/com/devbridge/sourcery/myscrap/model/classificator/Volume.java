@@ -21,8 +21,8 @@ public class Volume {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
-  Integer volume;
+  private Long id;
+  private Integer volume;
 
   @OneToOne
   @JoinColumn(name = "advertisements_id")

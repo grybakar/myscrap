@@ -21,9 +21,9 @@ public class Mass {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+  private Long id;
 
-  Integer weight;
+  private Integer weight;
 
   @OneToOne
   @JoinColumn(name = "advertisements_id")
