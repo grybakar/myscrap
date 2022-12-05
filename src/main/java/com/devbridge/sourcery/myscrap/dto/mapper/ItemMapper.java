@@ -2,21 +2,15 @@ package com.devbridge.sourcery.myscrap.dto.mapper;
 
 import com.devbridge.sourcery.myscrap.dto.ItemDto;
 import com.devbridge.sourcery.myscrap.model.Item;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.mapstruct.Mapper;
 
-@Service
-@AllArgsConstructor
-public class ItemMapper {
+@Mapper(componentModel = "spring")
+public interface ItemMapper {
 
-  private final MapperConfig mapperConfig;
 
-  public ItemDto mapToDto(Item item) {
-    return mapperConfig.modelMapper().map(item, ItemDto.class);
-  }
+  ItemDto toItemDto(Item item);
 
-  public Item mapToEntity(ItemDto itemDto) {
-    return mapperConfig.modelMapper().map(itemDto, Item.class);
-  }
+  Item toItemEntity(ItemDto itemDto);
+
 
 }

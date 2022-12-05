@@ -2,21 +2,14 @@ package com.devbridge.sourcery.myscrap.dto.mapper;
 
 import com.devbridge.sourcery.myscrap.dto.ClassificatorDto;
 import com.devbridge.sourcery.myscrap.model.Classificator;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.mapstruct.Mapper;
 
-@Service
-@AllArgsConstructor
-public class ClassificatorMapper {
+@Mapper(componentModel = "spring")
+public interface ClassificatorMapper {
 
-  private final MapperConfig mapperConfig;
 
-  public ClassificatorDto mapToDto(Classificator classificator) {
-    return mapperConfig.modelMapper().map(classificator, ClassificatorDto.class);
-  }
+  ClassificatorDto toClassificatorDto(Classificator classificator);
 
-  public Classificator mapToEntity(ClassificatorDto classificatorDto) {
-    return mapperConfig.modelMapper().map(classificatorDto, Classificator.class);
-  }
+  Classificator toClassificatorEntity(ClassificatorDto classificatorDto);
 
 }

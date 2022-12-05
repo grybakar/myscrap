@@ -14,7 +14,7 @@ public interface AdvertisementMapper {
 
   @Mapping(target = "item", ignore = true)
   @Mapping(target = "item.id", source = "itemId")
-  Advertisement toAdvertisement(AdvertisementDto advertisementDto);
+  Advertisement toAdvertisementEntity(AdvertisementDto advertisementDto);
 
 
 }

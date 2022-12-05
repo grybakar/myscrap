@@ -20,7 +20,7 @@ public class ClassificatorService {
     List<Classificator> classificatorsByItemName = classificatorRepository.findAllByItemName(name);
     return classificatorsByItemName
       .stream()
-      .map(classificatorMapper::mapToDto)
+      .map(classificatorMapper::toClassificatorDto)
       .collect(Collectors.toList());
   }
 }
