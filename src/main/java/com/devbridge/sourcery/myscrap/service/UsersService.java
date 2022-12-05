@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UsersService {
+
   public final UsersRepository usersRepository;
   public final UsersMapper usersMapper;
 
@@ -23,24 +24,24 @@ public class UsersService {
       .collect(Collectors.toList());
   }
 
-  public UsersDto getUserById(Long id) {
-    Users usersById = usersRepository.findById(id)
-      .orElseThrow(() -> new IllegalArgumentException("User with given id not found"));
-    return usersMapper.mapToDto(usersById);
+  public UsersDto getCurrentUser() {
+    Users currentUser = usersRepository.findById(5L)
+      .orElseThrow(() -> new IllegalArgumentException("No present user"));
+    return usersMapper.mapToDto(currentUser);
   }
 
   public Users createUser(Users user) {
     return usersRepository.save(user);
   }
 
-  public Users updateUser(Long id, Users userRequest) {
-    Users user = usersRepository.findById(id)
-      .orElseThrow(() -> new IllegalArgumentException("Id not found"));
-    user.setName(userRequest.getName());
-    user.setEmail(userRequest.getEmail());
-    user.setPassword(userRequest.getPassword());
-    user.setAddress(userRequest.getAddress());
-    user.setPhone(userRequest.getPhone());
+  public Users updateCurrentUser(Users usersRequest) {
+    Users user = usersRepository.findById(5L)
+      .orElseThrow(() -> new IllegalArgumentException("User not found"));
+    user.setName(usersRequest.getName());
+    user.setEmail(usersRequest.getEmail());
+    user.setPassword(usersRequest.getPassword());
+    user.setAddress(usersRequest.getAddress());
+    user.setPhone(usersRequest.getPhone());
     return usersRepository.save(user);
   }
 }

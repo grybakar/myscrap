@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping(path = "/users")
 public class UsersController {
+
   public final UsersService usersService;
   public final UsersMapper usersMapper;
 
@@ -31,9 +31,9 @@ public class UsersController {
     return new ResponseEntity<>(usersDto, HttpStatus.OK);
   }
 
-  @GetMapping("/{id}")
-  public ResponseEntity<UsersDto> getUserById(@PathVariable(name = "id") Long id) {
-    UsersDto usersDto = usersService.getUserById(id);
+  @GetMapping("/current")
+  public ResponseEntity<UsersDto> getCurrentUser() {
+    UsersDto usersDto = usersService.getCurrentUser();
     return new ResponseEntity<>(usersDto, HttpStatus.OK);
   }
 
@@ -42,14 +42,14 @@ public class UsersController {
     Users usersRequest = usersMapper.mapToEntity(usersDto);
     Users user = usersService.createUser(usersRequest);
     UsersDto usersResponse = usersMapper.mapToDto(user);
-    return new ResponseEntity<>(usersResponse,HttpStatus.CREATED);
+    return new ResponseEntity<>(usersResponse, HttpStatus.CREATED);
   }
 
-  @PostMapping("/{id}")
-  public ResponseEntity<UsersDto> updateUser(@PathVariable(name = "id") Long id, @RequestBody UsersDto usersDto) {
-    Users usersRequest = usersMapper.mapToEntity(usersDto);
-    Users user = usersService.updateUser(id, usersRequest);
-    UsersDto usersResponse = usersMapper.mapToDto(user);
-    return ResponseEntity.ok().body(usersResponse);
+  @PostMapping("/current")
+  public ResponseEntity<UsersDto> updateCurrentUser(@RequestBody UsersDto usersDto) {
+    Users userRequest = usersMapper.mapToEntity(usersDto);
+    Users user = usersService.updateCurrentUser(userRequest);
+    UsersDto userResponse = usersMapper.mapToDto(user);
+    return ResponseEntity.ok().body(userResponse);
   }
 }
