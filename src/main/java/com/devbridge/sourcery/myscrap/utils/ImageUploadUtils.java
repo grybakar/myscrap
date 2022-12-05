@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @Service
+@Slf4j
 public class ImageUploadUtils {
 
   private final Path storageDirectory = Paths.get("images");
@@ -20,7 +22,7 @@ public class ImageUploadUtils {
       Path filePath = Paths.get(storageDirectory + "\\" + file.getOriginalFilename());
       Files.write(filePath, data);
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("Error in uploading an image: {}", e.getMessage());
     }
     return ServletUriComponentsBuilder
       .fromCurrentContextPath()
