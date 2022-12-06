@@ -9,9 +9,12 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface AdvertisementMapper {
 
+  @Mapping(target = "userId", source = "users.id")
   @Mapping(target = "itemId", source = "item.id")
   AdvertisementDto toAdvertisementDto(Advertisement advertisement);
 
+  @Mapping(target = "users", ignore = true)
+  @Mapping(target = "users.id", source = "userId")
   @Mapping(target = "item", ignore = true)
   @Mapping(target = "item.id", source = "itemId")
   Advertisement toAdvertisementEntity(AdvertisementDto advertisementDto);

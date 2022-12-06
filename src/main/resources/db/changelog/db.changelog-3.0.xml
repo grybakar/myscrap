@@ -6,7 +6,7 @@
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
   <changeSet id="1" author="Valdas">
     <sql>
-      ALTER TABLE users DROP COLUMN role;
+      ALTER TABLE users DROP COLUMN ROLE;
     </sql>
     <rollback>
       ALTER TABLE users;
@@ -22,6 +22,58 @@
     </sql>
     <rollback>
       ALTER TABLE advertisements;
+    </rollback>
+  </changeSet>
+  <changeSet id="3" author="Karolis">
+    <sql>
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/ceresit.jpg'
+      WHERE id = 1;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/ceresit2.jpg'
+      WHERE id = 2;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store3.jpg'
+      WHERE id = 3;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store4.jpg'
+      WHERE id = 4;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store5.jpg'
+      WHERE id = 5;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store6.jpg'
+      WHERE id = 6;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store7.jpg'
+      WHERE id = 7;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store8.jpg'
+      WHERE id = 8;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store9.jpg'
+      WHERE id = 9;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store10.jpg'
+      WHERE id = 10;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store11.jpg'
+      WHERE id = 11;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store12.jpg'
+      WHERE id = 12;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store13.jpg'
+      WHERE id = 13;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store14.jpg'
+      WHERE id = 14;
+      UPDATE advertisements
+      SET photo_url = '/images/getImage/store15.jpg'
+      WHERE id = 15;
+    </sql>
+    <rollback>
+      UPDATE advertisements;
     </rollback>
   </changeSet>
 </databaseChangeLog>

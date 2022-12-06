@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @Slf4j
@@ -24,9 +24,8 @@ public class ImageUploadUtils {
     } catch (IOException e) {
       log.error("Error in uploading an image: {}", e.getMessage());
     }
-    return ServletUriComponentsBuilder
-      .fromCurrentContextPath()
-      .path("/images/getImage/")
+    return UriComponentsBuilder
+      .fromPath("/images/getImage/")
       .path(file.getOriginalFilename())
       .toUriString();
   }

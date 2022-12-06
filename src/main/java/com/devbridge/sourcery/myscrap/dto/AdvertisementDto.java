@@ -24,4 +24,5 @@ public class AdvertisementDto {
   private String availableTimeStart;
   private String availableTimeEnd;
   private Long itemId;
+  private Long userId;
 }

@@ -4,11 +4,8 @@ import com.devbridge.sourcery.myscrap.model.classificator.Color;
 import com.devbridge.sourcery.myscrap.model.classificator.Dimension;
 import com.devbridge.sourcery.myscrap.model.classificator.Mass;
 import com.devbridge.sourcery.myscrap.model.classificator.Volume;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.time.LocalTime;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,13 +19,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity(name = "advertisements")
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@ToString
 public class Advertisement {
 
   @Id
@@ -49,7 +47,7 @@ public class Advertisement {
   private LocalTime availableTimeStart;
   private LocalTime availableTimeEnd;
 
-  @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "item_Id")
   @JsonIgnore
   private Item item;
@@ -65,5 +63,10 @@ public class Advertisement {
 
   @OneToOne(mappedBy = "advertisement")
   private Dimension dimension;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id")
+  @JsonIgnore
+  private Users users;
 
 }
