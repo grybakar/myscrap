@@ -1,5 +1,9 @@
 package com.devbridge.sourcery.myscrap.model;
 
+import com.devbridge.sourcery.myscrap.model.classificator.Color;
+import com.devbridge.sourcery.myscrap.model.classificator.Dimension;
+import com.devbridge.sourcery.myscrap.model.classificator.Mass;
+import com.devbridge.sourcery.myscrap.model.classificator.Volume;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.time.LocalTime;
@@ -12,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,5 +51,17 @@ public class Advertisement {
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "item_Id")
   private Item item;
+
+  @OneToOne(mappedBy = "advertisement")
+  private Color color;
+
+  @OneToOne(mappedBy = "advertisement")
+  private Mass mass;
+
+  @OneToOne(mappedBy = "advertisement")
+  private Volume volume;
+
+  @OneToOne(mappedBy = "advertisement")
+  private Dimension dimension;
 
 }

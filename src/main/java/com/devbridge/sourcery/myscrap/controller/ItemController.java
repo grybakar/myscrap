@@ -1,6 +1,7 @@
 package com.devbridge.sourcery.myscrap.controller;
 
 import com.devbridge.sourcery.myscrap.dto.ItemDto;
+import com.devbridge.sourcery.myscrap.dto.ItemsClassificatorsDto;
 import com.devbridge.sourcery.myscrap.service.ItemService;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -20,8 +21,16 @@ public class ItemController {
 
   @GetMapping("/categories")
   public ResponseEntity<List<ItemDto>> getAllItemsByCategoryId(@RequestParam Long categoriesId) {
-
     List<ItemDto> itemsDto = itemService.findItemsByCategoriesId(categoriesId);
     return new ResponseEntity<>(itemsDto, HttpStatus.OK);
   }
+
+  @GetMapping("/")
+  public ResponseEntity<List<ItemsClassificatorsDto>> getAllItemsByName(@RequestParam String name) {
+    List<ItemsClassificatorsDto> itemsByName = itemService.findItemsByName(name);
+    return new ResponseEntity<>(itemsByName, HttpStatus.OK);
+
+  }
+
+
 }
