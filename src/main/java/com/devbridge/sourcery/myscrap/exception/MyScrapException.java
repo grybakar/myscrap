@@ -7,4 +7,8 @@ public class MyScrapException extends RuntimeException {
 
 
   }
+
+  public MyScrapException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

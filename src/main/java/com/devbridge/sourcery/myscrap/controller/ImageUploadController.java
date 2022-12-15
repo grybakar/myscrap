@@ -1,7 +1,6 @@
 package com.devbridge.sourcery.myscrap.controller;
 
 import com.devbridge.sourcery.myscrap.utils.ImageUploadUtils;
-import java.io.IOException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,8 +31,7 @@ public class ImageUploadController {
     value = "getImage/{imageName}",
     produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_GIF_VALUE, MediaType.IMAGE_PNG_VALUE}
   )
-  public @ResponseBody byte[] getImageWithMediaType(@PathVariable(name = "imageName") String fileName)
-    throws IOException {
+  public @ResponseBody byte[] getImageWithMediaType(@PathVariable(name = "imageName") String fileName) {
     return imageUploadUtils.getImage(fileName);
   }
 

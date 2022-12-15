@@ -11,12 +11,15 @@ public interface AdvertisementMapper {
 
   @Mapping(target = "userId", source = "users.id")
   @Mapping(target = "itemId", source = "item.id")
+  @Mapping(target = "color", source = "color.color")
   AdvertisementDto toAdvertisementDto(Advertisement advertisement);
 
   @Mapping(target = "users", ignore = true)
   @Mapping(target = "users.id", source = "userId")
   @Mapping(target = "item", ignore = true)
   @Mapping(target = "item.id", source = "itemId")
+  @Mapping(target = "color.color", source = "color")
+
   Advertisement toAdvertisementEntity(AdvertisementDto advertisementDto);
 
 

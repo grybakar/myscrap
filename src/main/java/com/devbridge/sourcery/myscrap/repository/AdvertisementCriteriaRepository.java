@@ -51,8 +51,8 @@ public class AdvertisementCriteriaRepository {
     if (searchCriteria.getColor() != null) {
       Join<Advertisement, Color> colorJoin = root.join("color");
       predicates.add(
-        criteriaBuilder.
-          equal(criteriaBuilder.lower(colorJoin.get("color")), searchCriteria.getColor().toLowerCase()));
+        criteriaBuilder
+          .equal(criteriaBuilder.lower(colorJoin.get("color")), searchCriteria.getColor().toLowerCase()));
     }
     if (searchCriteria.getWeight() != null) {
       Join<Advertisement, Mass> massJoin = root.join("mass");

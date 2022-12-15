@@ -5,6 +5,7 @@ import com.devbridge.sourcery.myscrap.dto.AdvertisementSearchCriteria;
 import com.devbridge.sourcery.myscrap.dto.mapper.AdvertisementMapper;
 import com.devbridge.sourcery.myscrap.exception.MyScrapException;
 import com.devbridge.sourcery.myscrap.model.Advertisement;
+import com.devbridge.sourcery.myscrap.model.classificator.Color;
 import com.devbridge.sourcery.myscrap.repository.AdvertisementCriteriaRepository;
 import com.devbridge.sourcery.myscrap.repository.AdvertisementRepository;
 import com.devbridge.sourcery.myscrap.utils.ImageUploadUtils;
@@ -48,8 +49,17 @@ public class AdvertisementService {
   public AdvertisementDto save(AdvertisementDto advertisementDto, MultipartFile file) {
     log.info("Saving new advertisement to DB: {}", advertisementDto);
     advertisementDto.setPhotoUrl(imageUploadUtils.uploadImage(file));
-    Advertisement advertisement = advertisementMapper.toAdvertisement(advertisementDto);
+    Advertisement advertisement = advertisementMapper.toAdvertisementEntity(advertisementDto);
+    addAdvertisementToColor(advertisement);
     Advertisement savedAdvertisement = advertisementRepository.save(advertisement);
     return advertisementMapper.toAdvertisementDto(savedAdvertisement);
   }
+
+  public void addAdvertisementToColor(Advertisement advertisement){
+    Color color = new Color();
+    color.setAdvertisement(advertisement);
+  }
+
+
+
 }

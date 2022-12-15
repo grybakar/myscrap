@@ -1,7 +1,9 @@
 package com.devbridge.sourcery.myscrap.model.classificator;
 
 import com.devbridge.sourcery.myscrap.model.Advertisement;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,8 +26,11 @@ public class Color {
   private Long id;
   private String color;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "advertisements_id")
   private Advertisement advertisement;
+
+
+
 
 }

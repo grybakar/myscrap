@@ -26,5 +26,5 @@ public class Volume {
 
   @OneToOne
   @JoinColumn(name = "advertisements_id")
-  Advertisement advertisement;
+  private Advertisement advertisement;
 }

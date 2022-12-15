@@ -25,7 +25,7 @@ public class ItemService {
     List<Item> itemsByCategoriesId = itemRepository.findItemsByCategoriesId(categoriesId);
     return itemsByCategoriesId
       .stream()
-      .map(itemMapper::mapToDto)
+      .map(itemMapper::toItemDto)
       .toList();
   }
 

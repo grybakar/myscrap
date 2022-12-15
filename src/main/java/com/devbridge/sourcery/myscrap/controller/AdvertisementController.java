@@ -42,7 +42,6 @@ public class AdvertisementController {
     return new ResponseEntity<>(filteredAdvertisements, HttpStatus.OK);
   }
 
-
   @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
   @Transactional
   public ResponseEntity<AdvertisementDto> save(
